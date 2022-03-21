@@ -1,5 +1,7 @@
 import os
 from astropy.io import fits
+import numpy as np
+import pdb
 
 class Data:
 	'''
@@ -37,5 +39,17 @@ class Data:
 	# ABC method
 
 	# Median method
+	def roof_median(self,spec_window):
+		test=self.sci[0,0,:,:]
+		sum_row=np.sum(test,axis=1)
+		pos_max=np.argmax(sum_row)
+		bkg=np.concatenate((test[:np.max((int(pos_max-spec_window),0)),:],test[np.min((int(pos_max+spec_window),np.shape(test)[0])):,:]))
+		med=np.median(bkg,axis=0)
+		print(med)
+		removef=np.zeros_like(test)
+		for row in np.arange(np.shape(test)[0]):
+			removef[row]=test[row]-med
+
+		return removef
 
 	# Polynomial fit method
