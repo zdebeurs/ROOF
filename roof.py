@@ -18,7 +18,7 @@ class Data:
 		'''
 		Function to load JWST pipeline data prior to ramp fitting
 		'''
-		# Check if filepath is a directory, or a file
+		# Check if filepath is actually a file
 		if not os.path.isfile(filepath):
 			raise ValueError('File path not recognised as a file.')
 
@@ -32,11 +32,10 @@ class Data:
 
 		return
 
+	# Power spectrum
 
-# Class to load in data, specify / estimate pixels to be used for estimating 1/f
+	# ABC method
 
-# ABC method
+	# Median method
 
-# Median method
-
-# Polynomial fit method
+	# Polynomial fit method
