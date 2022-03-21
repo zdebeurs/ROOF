@@ -32,6 +32,28 @@ class Data:
 
 		return
 
+	def finish_stage1(self, output_dir):
+
+		# Putting this import here for now...
+		from jwst.pipeline.calwebb_detector1 import Detector1Pipeline
+
+		pipeline = Detector1Pipeline()
+		# Skip steps that should already be done
+		pipeline.group_scale.skip = True
+		pipeline.dq_init.skip = True
+		pipeline.saturation.skip = True
+		pipeline.ipc.skip = True
+		pipeline.superbias.skip = True
+		# Persistence step is also skipped for TSO observations
+		pipeline.persistence.skip = True
+
+		pipeline.save_results = True
+		pipeline.output_dir = output_dir
+		pipeline.run(self.filepath)
+
+		return
+
+
 	# Power spectrum
 
 	# ABC method
