@@ -57,3 +57,4 @@ def plot_power_spectrum(images,frequencies = None):
 	plt.plot(frequencies,power)
 	plt.xscale('log')
 	plt.yscale('log')
+	plt.show()
