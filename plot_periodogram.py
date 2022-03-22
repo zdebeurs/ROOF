@@ -37,6 +37,11 @@ def plot_power_spectrum(images,frequencies = None):
 	Calculate the 1/f power spectrum for a series of images, either supplied or just the raw data
 	Takes in a list of images
 	'''
+	#convert images to a 1d array
+	shape = np.shape(images)
+	if len(shape) == 4:
+		images = np.reshape(images,(shape[0]*shape[1],shape[2],shape[3]))
+
 
 	if frequencies == None:
 		frequencies = np.logspace(1,5,100)
@@ -53,8 +58,6 @@ def plot_power_spectrum(images,frequencies = None):
 
 	power = np.median(powers,axis=0)
 
-	#if show:
 	plt.plot(frequencies,power)
 	plt.xscale('log')
 	plt.yscale('log')
-	plt.show()
