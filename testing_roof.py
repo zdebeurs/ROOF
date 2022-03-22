@@ -16,5 +16,5 @@ plt.imshow(data.sci[0,0,:,:],aspect=10)
 plt.show()
 
 plt.figure()
-plt.imshow(removef_simple,aspect=10)
+plt.imshow(removef_simple[0,0,:,:],aspect=10)
 plt.show()

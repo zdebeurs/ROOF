@@ -40,15 +40,16 @@ class Data:
 
 	# Median method
 	def roof_median(self,spec_window):
-		test=self.sci[0,0,:,:]
-		sum_row=np.sum(test,axis=1)
-		pos_max=np.argmax(sum_row)
-		bkg=np.concatenate((test[:np.max((int(pos_max-spec_window),0)),:],test[np.min((int(pos_max+spec_window),np.shape(test)[0])):,:]))
-		med=np.median(bkg,axis=0)
-		print(med)
-		removef=np.zeros_like(test)
-		for row in np.arange(np.shape(test)[0]):
-			removef[row]=test[row]-med
+		removef=np.empty(np.shape(self.sci))
+		for integration in np.arange(np.shape(self.sci)[0]):
+			for group in np.arange(np.shape(self.sci)[1]):
+				test=self.sci[integration,group,:,:]
+				sum_row=np.sum(test,axis=1)
+				pos_max=np.argmax(sum_row)
+				bkg=np.concatenate((test[:np.max((int(pos_max-spec_window),0)),:],test[np.min((int(pos_max+spec_window),np.shape(test)[0])):,:]))
+				med=np.median(bkg,axis=0)
+				for row in np.arange(np.shape(test)[0]):
+					removef[integration,group,row,:]=test[row]-med
 
 		return removef
 
